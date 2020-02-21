@@ -1,0 +1,50 @@
+# https://taskfile.dev
+
+version: '2'
+
+tasks: 
+  deploy:
+    desc: deploy cdk "SingleInstanceStack"
+    deps: [build-cdk]
+    dir: single-instance
+    cmds:
+      - cdk deploy SingleInstanceStack
+    silent: true
+
+  destroy:
+    desc: destroy cdk "SingleInstanceStack"
+    deps: [build-cdk]
+    dir: single-instance
+    cmds:
+      - cdk destroy SingleInstanceStack
+    silent: true
+
+
+  build-cdk:
+    dir: single-instance
+    cmds:
+      - npm run build
+
+  enable-imdsv2:
+    desc: Enable imdbv2
+    cmds:
+      - aws ec2 modify-instance-metadata-options --instance-id {{.INSTANCEID}} --http-endpoint enabled --http-token required
+
+  disable-imdsv2:
+    desc: Disable imdbv2
+    cmds:
+      - aws ec2 modify-instance-metadata-options --instance-id {{.INSTANCEID}}  --http-endpoint enabled --http-token optional
+
+  show:
+    desc: show variables
+    cmds:
+      - echo InstanceID - {{.INSTANCEID}}
+      - echo InstanceIp - {{.INSTANCEIP}}
+      - echo Deployment Bucket - {{.DEPLOYMENTBUCKET}}
+      - aws ec2 describe-instances --instance-ids {{.INSTANCEID}} --query 'Reservations[0].Instances[0].MetadataOptions'
+    silent: true
+    
+  connect:
+    desc: Connect to instance ubuntu
+    cmds:
+      - mssh ubuntu@{{.INSTANCEIP}} -t  {{.INSTANCEID}}

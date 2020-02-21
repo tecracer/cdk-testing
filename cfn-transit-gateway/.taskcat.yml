@@ -1,0 +1,42 @@
+project:
+  name: demo-transit-gateway
+  owner: gglawe@tecracer.de
+  package_lambda: false
+  regions:
+  - eu-central-1
+  - eu-west-1
+  s3_bucket: ''
+tests:
+  scenario-a:
+    parameters:
+      Cidr: 10.0.1.0/24
+      Name: Demo A
+      ip: 10.0.1.16
+      key: default-lab-key
+    regions:
+    - eu-central-1
+    - eu-west-1
+    s3_bucket: ''
+    template: templates/testa.yaml
+  scenario-b:
+    parameters:
+      Cidr: 10.0.2.0/24
+      Name: Demo B
+      ip: 10.0.2.16
+      key: default-lab-key
+    regions:
+    - eu-central-1
+    - eu-west-1
+    s3_bucket: ''
+    template: templates/testa.yaml
+  scenario-c:
+    parameters:
+      Cidr: 10.0.3.0/24
+      Name: Demo C
+      ip: 10.0.3.16
+      key: default-lab-key
+    regions:
+    - eu-central-1
+    - eu-west-1
+    s3_bucket: ''
+    template: templates/testa.yaml

@@ -1,0 +1,14 @@
+name: test-cdk
+title: InSpec Profile
+maintainer: The Authors
+copyright: The Authors
+copyright_email: you@example.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile
+inspec_version: '>= 4.6.9'
+version: 0.1.0
+depends:
+  - name: inspec-aws
+    url: https://github.com/inspec/inspec-aws/archive/master.tar.gz
+supports:
+  - platform: aws
